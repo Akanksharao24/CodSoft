@@ -65,3 +65,7 @@ The simulation ran for 2000 time steps, allowing for a thorough exploration of m
     - The largest number of evictions required to satisfy a single new partition request.
 
 ---
+
+** The code which I wrote works fine for the 3 policies ( best fit, worst fit, first fit ) it shows clearly but coming to the 11 metrics sometimes show the results and sometimes it doesnot. 
+
+** CHATGPT HAS BEEN USED TO OVERCOME THE PROBLEM BUT IT DOESN'T WORK. I HAVE ATTACHED BOTH THE CODES. 
