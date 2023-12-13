@@ -1,68 +1,59 @@
 # Memory Allocation Simulation Report
 
-## Introduction
+### MemoryBlock Struct
 
-The purpose of this simulation was to explore and analyze the effects of different memory allocation policies on a hypothetical machine with variable-size partitions. The simulation considered three size distribution profiles (Any-sized jobs, Small jobs, Large jobs) and three replacement policies (Best fit, Worst fit, First fit).
+```c
+struct MemoryBlock {
+    int memory[MAX_DIVS];
+    bool free[MAX_DIVS];
+    int divs;
+    int totalJobs;
+    int totalMemory;
+    int totalHoles;
+    int totalEvictions;
+};
+```
 
-## Experimental Conditions
+This struct represents the state of the memory system. It includes information such as memory block sizes, their availability (`free`), the number of divisions (`divs`), total jobs, total memory, total holes, and total evictions.
 
-### Size Distribution Profiles
+### Simulation Functions
 
-1. **Any-sized jobs**
-   - Each job can be of any random size between 1 and 1024.
+#### `runSimulation`
 
-2. **Small jobs**
-   - Each job can be of any random size between 1 and 100.
+```c
+void runSimulation(struct MemoryBlock *m)
+```
 
-3. **Large jobs**
-   - Each job can be of any random size between 500 and 1000.
+This function is responsible for running the simulation for a specified number of time steps (`SIMULATION_STEPS`). It generates new jobs, releases memory when jobs terminate, and calls the appropriate memory allocation function based on the chosen policy.
 
-### Replacement Policies
+#### `printSummary`
 
-1. **Best fit (Policy 1)**
-2. **Worst fit (Policy 2)**
-3. **First fit (Policy 3)**
+```c
+void printSummary(struct MemoryBlock *m)
+```
 
-## Simulation Results
+This function prints a summary of the simulation results, including average fragmentation, average size of a hole, average number of holes examined, highest and lowest fragmentation, average number of jobs in memory, highest and lowest number of jobs in memory, average size of a job, average number of holes, highest and lowest number of holes recorded, largest number of partitions created in a row, and the largest number of evictions required.
 
-### Overview
+### Memory Allocation Policies
 
-The simulation ran for 2000 time steps, allowing for a thorough exploration of memory allocation behavior. Each scenario underwent 1000 initial time steps to reach a state of equilibrium before recording measurements.
+#### `firstFit`, `bestFit`, `worstFit`
 
-### Summary Metrics
+These functions implement different memory allocation policies - First Fit, Best Fit, and Worst Fit. They search for a suitable memory block based on the policy and update the memory state accordingly.
 
-1. **Average Fragmentation**
-   - The average fraction of total memory occupied by holes.
+### User Interaction Functions
 
-2. **Average Size of a Hole**
-   - The average size of holes in memory.
+#### `welcomeMessage`, `processInput`, `memoryInput`, `choice`
 
-3. **Average Number of Holes Examined**
-   - The average number of holes examined to satisfy a single new partition request.
+These functions handle user interactions, such as welcoming the user, processing input, allowing the user to input memory data, and choosing the memory allocation algorithm.
 
-4. **Highest and Lowest Fragmentation**
-   - The highest and lowest fragmentation measured during the simulation.
+### Main Function
 
-5. **Average Number of Jobs in Memory**
-   - The average number of jobs present in memory.
+```c
+int main()
+```
 
-6. **Highest and Lowest Number of Jobs in Memory**
-   - The highest and lowest number of jobs recorded in memory.
+The `main` function initializes the `MemoryBlock` struct, welcomes the user, runs the simulation, and prints the simulation summary.
 
-7. **Average Size of a Job**
-   - The average size of jobs in memory.
-
-8. **Average Number of Holes**
-   - The average number of holes in memory.
-
-9. **Highest and Lowest Number of Holes Recorded**
-   - The highest and lowest number of holes recorded during the simulation.
-
-10. **Largest Number of Partitions Created in a Row**
-    - The largest number of partitions created consecutively without any intervening evictions.
-
-11. **Largest Number of Evictions Required**
-    - The largest number of evictions required to satisfy a single new partition request.
 
 ---
 
